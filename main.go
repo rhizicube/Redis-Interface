@@ -3,35 +3,48 @@ package main
 import (
 	"fmt"
 
-	"encoding/json"
-
 	"github.com/go-redis/redis"
 )
 
-type Author struct {
-	Name string `json:"name"`
-	Age  int    `json:"age"`
+func main() {
+
+	student := map[string]string{
+		"id":   "st01",
+		"name": "namme1",
+	}
+
+	set("key1", student, 0)
+	get("key1")
+
 }
 
-func main() {
+func set(key string, value map[string]string, ttl int) bool {
 	client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "",
 		DB:       0,
 	})
 
-	json, err := json.Marshal(Author{Name: "kkb", Age: 20})
+	err := client.Set(key, value, 0).Err()
 	if err != nil {
 		fmt.Println(err)
+		return false
 	}
+	return true
+}
 
-	err = client.Set("id1234", json, 0).Err()
+func get(key string) bool {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+
+	val, err := client.Get(key).Result()
 	if err != nil {
 		fmt.Println(err)
-	}
-	val, err := client.Get("id1234").Result()
-	if err != nil {
-		fmt.Println(err)
+		return false
 	}
 	fmt.Println(val)
+	return true
 }
