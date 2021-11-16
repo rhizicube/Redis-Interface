@@ -8,7 +8,7 @@ import (
 	"github.com/go-redis/redis"
 )
 
-type Author struct {
+type Detail struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
 }
@@ -20,7 +20,7 @@ func main() {
 		DB:       0,
 	})
 
-	json, err := json.Marshal(Author{Name: "kkb", Age: 20})
+	json, err := json.Marshal(Detail{Name: "kkb", Age: 20})
 	if err != nil {
 		fmt.Println(err)
 	}
