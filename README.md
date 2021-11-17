@@ -6,8 +6,12 @@ Master has simple redis interface.
 Function has Redis interface with defining the set and get function
 
 STEPS TO RUN:
-Download the code
+Download the code. 
+
 Create a folder and store the code in it.
+
 go mod init [folder_name]
+
 go get.
+
 go run main.go
